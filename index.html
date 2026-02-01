@@ -4,88 +4,217 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ikumin Channel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: Arial, sans-serif;
-            background: #667eea;
-            margin: 0;
-            padding: 20px;
+            font-family: 'Nunito', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
         }
-        h1 {
-            color: white;
+        .header {
+            background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
+            background-size: 300% 300%;
+            animation: gradientMove 5s ease infinite;
+            padding: 40px 20px;
             text-align: center;
         }
-        #videos {
-            background: yellow;
-            padding: 20px;
-            margin: 20px;
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
-        .video-item {
+        .site-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: white;
+            text-shadow: 3px 3px 0 #333;
+        }
+        .profile {
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+            margin-top: -20px;
+        }
+        .profile-card {
             background: white;
-            margin: 10px 0;
-            padding: 15px;
-            border-radius: 10px;
+            border-radius: 30px;
+            padding: 40px;
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
         }
-        .video-item img {
-            max-width: 300px;
-            display: block;
+        .profile-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 5px solid #ff6b6b;
+            margin-bottom: 20px;
+        }
+        .profile-name {
+            font-size: 2rem;
+            font-weight: 900;
             margin-bottom: 10px;
+        }
+        .profile-desc {
+            color: #666;
+            margin-bottom: 20px;
+        }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 50px;
+            text-decoration: none;
+            color: white;
+            font-weight: 700;
+            transition: transform 0.3s;
+        }
+        .btn:hover { transform: translateY(-3px); }
+        .btn-yt { background: linear-gradient(135deg, #ff0000, #cc0000); }
+        .btn-ig { background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045); }
+
+        .videos {
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 900;
+            color: white;
+            text-shadow: 2px 2px 0 rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+        }
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        .video-card {
+            display: block;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+        .video-card:hover {
+            transform: translateY(-10px);
+        }
+        .video-card img {
+            width: 100%;
+            display: block;
+        }
+        .video-card .info {
+            padding: 15px;
+        }
+        .video-card .title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #333;
+            line-height: 1.4;
+        }
+        .footer {
+            background: rgba(0,0,0,0.2);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 40px;
+        }
+        .loading {
+            text-align: center;
+            color: white;
+            padding: 40px;
+            font-size: 1.2rem;
+        }
+        @media (max-width: 768px) {
+            .site-title { font-size: 1.8rem; }
+            .video-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; }
+            .video-card .info { padding: 10px; }
+            .video-card .title { font-size: 0.85rem; }
         }
     </style>
 </head>
 <body>
-    <h1>ikumin Channel - テスト</h1>
+    <header class="header">
+        <h1 class="site-title">ikumin Channel</h1>
+    </header>
 
-    <div id="videos" style="background:yellow; padding:20px;">
-        読み込み前...
-    </div>
+    <section class="profile">
+        <div class="profile-card">
+            <img src="https://yt3.googleusercontent.com/ytc/AIdro_kQKP9anRwVbFSPGUNBwMoHSWLUCFCwPcQeKVhu=s176-c-k-c0x00ffffff-no-rj" alt="ikumin" class="profile-image">
+            <h2 class="profile-name">ikumin</h2>
+            <p class="profile-desc">ショート動画を投稿しています！<br>チャンネル登録よろしくお願いします！</p>
+            <div class="social-links">
+                <a href="https://www.youtube.com/@ikumin" target="_blank" class="btn btn-yt">YouTube</a>
+                <a href="https://www.instagram.com/ikumin/" target="_blank" class="btn btn-ig">Instagram</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="videos">
+        <h2 class="section-title">Latest Videos</h2>
+        <div id="video-grid" class="video-grid">
+            <div class="loading">動画を読み込み中...</div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2025 ikumin Channel. All rights reserved.</p>
+    </footer>
 
     <script>
-        var videosDiv = document.getElementById('videos');
+        var container = document.getElementById('video-grid');
 
         var xhr = new XMLHttpRequest();
         xhr.open('GET', 'https://api.rss2json.com/v1/api.json?rss_url=https://www.youtube.com/feeds/videos.xml?channel_id=UCD-KiPyXa3YXGPijH2mDJXg');
         xhr.onload = function() {
             var data = JSON.parse(xhr.responseText);
-            var html = '<p style="color:green; font-size:20px;">動画 ' + data.items.length + ' 件取得成功!</p>';
 
-            for (var i = 0; i < data.items.length; i++) {
-                var item = data.items[i];
+            if (data.status === 'ok' && data.items && data.items.length > 0) {
+                var html = '';
 
-                // リンクからビデオIDを抽出（複数の形式に対応）
-                var videoId = null;
-                var link = item.link;
+                for (var i = 0; i < data.items.length; i++) {
+                    var item = data.items[i];
+                    var link = item.link;
+                    var videoId = null;
 
-                // watch?v= 形式
-                if (link.indexOf('watch?v=') !== -1) {
-                    videoId = link.split('watch?v=')[1];
-                    if (videoId.indexOf('&') !== -1) {
-                        videoId = videoId.split('&')[0];
+                    if (link.indexOf('watch?v=') !== -1) {
+                        videoId = link.split('watch?v=')[1];
+                        if (videoId.indexOf('&') !== -1) {
+                            videoId = videoId.split('&')[0];
+                        }
+                    } else if (link.indexOf('/shorts/') !== -1) {
+                        videoId = link.split('/shorts/')[1];
+                        if (videoId.indexOf('?') !== -1) {
+                            videoId = videoId.split('?')[0];
+                        }
+                    }
+
+                    if (videoId) {
+                        html += '<a class="video-card" href="' + link + '" target="_blank">';
+                        html += '<img src="https://img.youtube.com/vi/' + videoId + '/mqdefault.jpg" alt="' + item.title + '">';
+                        html += '<div class="info"><p class="title">' + item.title + '</p></div>';
+                        html += '</a>';
                     }
                 }
-                // shorts/ 形式
-                else if (link.indexOf('/shorts/') !== -1) {
-                    videoId = link.split('/shorts/')[1];
-                    if (videoId.indexOf('?') !== -1) {
-                        videoId = videoId.split('?')[0];
-                    }
-                }
-                // youtu.be 形式
-                else if (link.indexOf('youtu.be/') !== -1) {
-                    videoId = link.split('youtu.be/')[1];
-                }
 
-                html += '<div class="video-item">';
-                html += '<p><strong>リンク:</strong> ' + link + '</p>';
-                html += '<p><strong>VideoID:</strong> ' + videoId + '</p>';
-
-                if (videoId) {
-                    html += '<img src="https://img.youtube.com/vi/' + videoId + '/mqdefault.jpg">';
-                }
-                html += '<p><strong>' + item.title + '</strong></p>';
-                html += '</div>';
+                container.innerHTML = html;
+            } else {
+                container.innerHTML = '<div class="loading">動画が見つかりませんでした</div>';
             }
-            videosDiv.innerHTML = html;
+        };
+        xhr.onerror = function() {
+            container.innerHTML = '<div class="loading">読み込みエラーが発生しました</div>';
         };
         xhr.send();
     </script>
