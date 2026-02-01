@@ -54,17 +54,20 @@
             background: linear-gradient(135deg, #667eea, #764ba2, #f093fb, #feca57);
             padding: 4px;
             animation: borderRotate 3s linear infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         @keyframes borderRotate {
             0% { filter: hue-rotate(0deg); }
             100% { filter: hue-rotate(360deg); }
         }
         .profile-image {
-            width: 100%;
-            height: 100%;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             object-fit: cover;
-            border: 4px solid white;
+            background: white;
         }
         .profile-name {
             font-size: 2rem;
@@ -166,7 +169,7 @@
     <section class="profile">
         <div class="profile-card">
             <div class="profile-icon">
-                <img src="https://yt3.googleusercontent.com/ytc/AIdro_kQKP9anRwVbFSPGUNBwMoHSWLUCFCwPcQeKVhu=s176-c-k-c0x00ffffff-no-rj" alt="ikumin" class="profile-image">
+                <img src="https://yt3.ggpht.com/ytc/AIdro_kQKP9anRwVbFSPGUNBwMoHSWLUCFCwPcQeKVhu=s176-c-k-c0x00ffffff-no-rj" alt="ikumin" class="profile-image" onerror="this.src='https://via.placeholder.com/120?text=ikumin'">
             </div>
             <h2 class="profile-name">ikumin</h2>
             <p class="profile-desc">ショート動画を投稿しています！<br>チャンネル登録よろしくお願いします！</p>
