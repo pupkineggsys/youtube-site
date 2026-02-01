@@ -7,156 +7,61 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            min-height: 100vh;
+            background: #667eea;
             margin: 0;
             padding: 20px;
         }
-        .header {
-            text-align: center;
+        h1 {
             color: white;
+            text-align: center;
+        }
+        #videos {
+            background: yellow;
             padding: 20px;
+            margin: 20px;
         }
-        .header h1 {
-            font-size: 2rem;
-            margin: 0;
-        }
-        .profile {
+        .video-item {
             background: white;
-            max-width: 400px;
-            margin: 20px auto;
-            padding: 30px;
-            border-radius: 20px;
-            text-align: center;
-        }
-        .profile img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-        }
-        .btn {
-            display: inline-block;
-            padding: 10px 20px;
-            margin: 5px;
-            border-radius: 25px;
-            text-decoration: none;
-            color: white;
-        }
-        .btn-yt { background: #ff0000; }
-        .btn-ig { background: #833ab4; }
-        .debug {
-            background: #333;
-            color: #0f0;
+            margin: 10px 0;
             padding: 15px;
-            margin: 20px auto;
-            max-width: 800px;
             border-radius: 10px;
-            font-family: monospace;
         }
-        .videos {
-            max-width: 1000px;
-            margin: 20px auto;
-        }
-        .videos h2 {
-            color: white;
-            text-align: center;
-        }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px;
-        }
-        .card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            text-decoration: none;
-        }
-        .card img {
-            width: 100%;
-            display: block;
-        }
-        .card p {
-            padding: 10px;
-            margin: 0;
-            color: #333;
-            font-size: 14px;
+        .video-item img {
+            max-width: 200px;
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>ikumin Channel</h1>
-    </div>
+    <h1>ikumin Channel - テスト</h1>
 
-    <div class="profile">
-        <img src="https://yt3.googleusercontent.com/ytc/AIdro_kQKP9anRwVbFSPGUNBwMoHSWLUCFCwPcQeKVhu=s176-c-k-c0x00ffffff-no-rj" alt="ikumin">
-        <h2>ikumin</h2>
-        <p>ショート動画を投稿しています！</p>
-        <a href="https://www.youtube.com/@ikumin" class="btn btn-yt" target="_blank">YouTube</a>
-        <a href="https://www.instagram.com/ikumin/" class="btn btn-ig" target="_blank">Instagram</a>
-    </div>
-
-    <div class="debug" id="debug">
-        デバッグ: スクリプト開始待ち...
-    </div>
-
-    <div class="videos">
-        <h2>Latest Videos</h2>
-        <div class="grid" id="videos">
-            読み込み中...
-        </div>
+    <div id="videos" style="background:yellow; padding:20px;">
+        読み込み前...
     </div>
 
     <script>
-        var debug = document.getElementById('debug');
-        var videos = document.getElementById('videos');
+        var videosDiv = document.getElementById('videos');
+        videosDiv.innerHTML = '<p style="color:red; font-size:24px;">テスト: JavaScriptが動作しています</p>';
 
-        debug.innerHTML = '1. スクリプト実行開始<br>';
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'https://api.rss2json.com/v1/api.json?rss_url=https://www.youtube.com/feeds/videos.xml?channel_id=UCD-KiPyXa3YXGPijH2mDJXg');
+        xhr.onload = function() {
+            var data = JSON.parse(xhr.responseText);
+            var html = '<p style="color:green; font-size:20px;">動画 ' + data.items.length + ' 件取得成功!</p>';
 
-        try {
-            debug.innerHTML += '2. fetch開始...<br>';
-
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', 'https://api.rss2json.com/v1/api.json?rss_url=https://www.youtube.com/feeds/videos.xml?channel_id=UCD-KiPyXa3YXGPijH2mDJXg', true);
-
-            xhr.onload = function() {
-                debug.innerHTML += '3. レスポンス受信: ' + xhr.status + '<br>';
-
-                if (xhr.status === 200) {
-                    var data = JSON.parse(xhr.responseText);
-                    debug.innerHTML += '4. データ解析完了: ' + data.status + '<br>';
-                    debug.innerHTML += '5. 動画数: ' + (data.items ? data.items.length : 0) + '<br>';
-
-                    if (data.items && data.items.length > 0) {
-                        var html = '';
-                        for (var i = 0; i < data.items.length; i++) {
-                            var item = data.items[i];
-                            var match = item.link.match(/watch\?v=([^&]+)/);
-                            if (match) {
-                                html += '<a class="card" href="' + item.link + '" target="_blank">';
-                                html += '<img src="https://i.ytimg.com/vi/' + match[1] + '/hqdefault.jpg">';
-                                html += '<p>' + item.title + '</p></a>';
-                            }
-                        }
-                        videos.innerHTML = html;
-                        debug.innerHTML += '6. 表示完了！<br>';
-                    }
-                } else {
-                    debug.innerHTML += 'エラー: ステータス ' + xhr.status + '<br>';
+            for (var i = 0; i < data.items.length; i++) {
+                var item = data.items[i];
+                var videoId = item.link.split('v=')[1];
+                if (videoId) {
+                    videoId = videoId.split('&')[0];
+                    html += '<div class="video-item">';
+                    html += '<img src="https://img.youtube.com/vi/' + videoId + '/mqdefault.jpg"><br>';
+                    html += '<strong>' + item.title + '</strong>';
+                    html += '</div>';
                 }
-            };
-
-            xhr.onerror = function() {
-                debug.innerHTML += 'ネットワークエラー発生<br>';
-            };
-
-            xhr.send();
-            debug.innerHTML += '2.5. リクエスト送信完了<br>';
-
-        } catch(e) {
-            debug.innerHTML += 'エラー: ' + e.message + '<br>';
-        }
+            }
+            videosDiv.innerHTML = html;
+        };
+        xhr.send();
     </script>
 </body>
 </html>
