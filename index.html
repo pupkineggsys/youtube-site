@@ -46,28 +46,19 @@
             box-shadow: 0 20px 60px rgba(0,0,0,0.2);
         }
         .profile-icon {
-            position: relative;
-            width: 130px;
-            height: 130px;
+            width: 120px;
+            height: 120px;
             margin: 0 auto 20px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb, #feca57);
-            padding: 4px;
-            animation: borderRotate 3s linear infinite;
+            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-        @keyframes borderRotate {
-            0% { filter: hue-rotate(0deg); }
-            100% { filter: hue-rotate(360deg); }
-        }
-        .profile-image {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            background: white;
+            font-size: 3rem;
+            color: white;
+            font-weight: 900;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.5);
         }
         .profile-name {
             font-size: 2rem;
@@ -168,9 +159,7 @@
 
     <section class="profile">
         <div class="profile-card">
-            <div class="profile-icon">
-                <img src="https://yt3.ggpht.com/ytc/AIdro_kQKP9anRwVbFSPGUNBwMoHSWLUCFCwPcQeKVhu=s176-c-k-c0x00ffffff-no-rj" alt="ikumin" class="profile-image" onerror="this.src='https://via.placeholder.com/120?text=ikumin'">
-            </div>
+            <div class="profile-icon">i</div>
             <h2 class="profile-name">ikumin</h2>
             <p class="profile-desc">ショート動画を投稿しています！<br>チャンネル登録よろしくお願いします！</p>
             <div class="social-links">
