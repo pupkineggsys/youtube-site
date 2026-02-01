@@ -27,7 +27,9 @@
             border-radius: 10px;
         }
         .video-item img {
-            max-width: 200px;
+            max-width: 300px;
+            display: block;
+            margin-bottom: 10px;
         }
     </style>
 </head>
@@ -40,7 +42,6 @@
 
     <script>
         var videosDiv = document.getElementById('videos');
-        videosDiv.innerHTML = '<p style="color:red; font-size:24px;">テスト: JavaScriptが動作しています</p>';
 
         var xhr = new XMLHttpRequest();
         xhr.open('GET', 'https://api.rss2json.com/v1/api.json?rss_url=https://www.youtube.com/feeds/videos.xml?channel_id=UCD-KiPyXa3YXGPijH2mDJXg');
@@ -50,14 +51,39 @@
 
             for (var i = 0; i < data.items.length; i++) {
                 var item = data.items[i];
-                var videoId = item.link.split('v=')[1];
-                if (videoId) {
-                    videoId = videoId.split('&')[0];
-                    html += '<div class="video-item">';
-                    html += '<img src="https://img.youtube.com/vi/' + videoId + '/mqdefault.jpg"><br>';
-                    html += '<strong>' + item.title + '</strong>';
-                    html += '</div>';
+
+                // リンクからビデオIDを抽出（複数の形式に対応）
+                var videoId = null;
+                var link = item.link;
+
+                // watch?v= 形式
+                if (link.indexOf('watch?v=') !== -1) {
+                    videoId = link.split('watch?v=')[1];
+                    if (videoId.indexOf('&') !== -1) {
+                        videoId = videoId.split('&')[0];
+                    }
                 }
+                // shorts/ 形式
+                else if (link.indexOf('/shorts/') !== -1) {
+                    videoId = link.split('/shorts/')[1];
+                    if (videoId.indexOf('?') !== -1) {
+                        videoId = videoId.split('?')[0];
+                    }
+                }
+                // youtu.be 形式
+                else if (link.indexOf('youtu.be/') !== -1) {
+                    videoId = link.split('youtu.be/')[1];
+                }
+
+                html += '<div class="video-item">';
+                html += '<p><strong>リンク:</strong> ' + link + '</p>';
+                html += '<p><strong>VideoID:</strong> ' + videoId + '</p>';
+
+                if (videoId) {
+                    html += '<img src="https://img.youtube.com/vi/' + videoId + '/mqdefault.jpg">';
+                }
+                html += '<p><strong>' + item.title + '</strong></p>';
+                html += '</div>';
             }
             videosDiv.innerHTML = html;
         };
